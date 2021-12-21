@@ -14,7 +14,7 @@ def getNotices():
         print('Updating')
         al.AllNotices(baseurl)
         print('Waiting')
-        time.sleep(30*60)
+        time.sleep(6*60)
 
 
 thread = threading.Thread(target=getNotices)

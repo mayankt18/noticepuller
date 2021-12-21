@@ -32,6 +32,7 @@ class AllNotices:
             print("Got categories!")
         except:
             print("Couldn't find categories!!!")
+            return
 
         soup = BeautifulSoup(response.text, 'html.parser')
 
@@ -63,5 +64,6 @@ class AllNotices:
         self.AllNotices = {
             "notices": self.AllNotices
         }
-        with open("response.json", 'w') as outfile:
+        with open("responses/response.json", 'w') as outfile:
+            print("Written Changes in responses.json")
             json.dump(self.AllNotices, outfile, indent=2)

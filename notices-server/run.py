@@ -1,12 +1,13 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 import threading
 import time
 from scraper_tools import AllNotices as al
 import json
+from decouple import config
 
 
 app = Flask(__name__)
-baseurl = 'https://nitdgp.ac.in/p/noticesnitd/general-2'
+baseurl = config("BASEURL")
 
 
 def getNotices():
@@ -25,11 +26,10 @@ thread.start()
 @app.route('/')
 def give_notices():
     try:
-        f = open('response.json')
-        data = json.load(f)
+        return send_from_directory('responses', 'response.json')
     except:
         data = {}
-    return json.dumps(data)
+        return json.dumps(data)
 
 
 if __name__ == '__main__':

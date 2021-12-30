@@ -7,7 +7,7 @@ from decouple import config
 
 
 app = Flask(__name__)
-baseurl = config("BASEURL")
+baseurl = "https://nitdgp.ac.in/p/noticesnitd/general-2"
 
 
 def getNotices():
@@ -15,7 +15,7 @@ def getNotices():
         print('Updating')
         al.AllNotices(baseurl)
         print('Waiting')
-        time.sleep(6*60)
+        time.sleep(30*60)
 
 
 thread = threading.Thread(target=getNotices)

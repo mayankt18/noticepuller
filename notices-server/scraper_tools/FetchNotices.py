@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 from requests import get
 from .ThreadwithRet import ThreadWithReturnValue
-import time
 
 
 class FetchNotices:

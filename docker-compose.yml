@@ -8,6 +8,8 @@ services:
     restart: always
     expose:
       - 8080
+    volumes:
+      - ./notices-server:/app
 
   nginx:
     build: ./nginx

@@ -16,6 +16,8 @@ class FetchNotices:
 
     def alternateGetTotalNotices(self, soup):
         next_page_links = soup.find_all('li', class_='page-link')
+        if len(next_page_links)==0:
+            return 1
         link = next_page_links[-1].find('a')
         last_page_no = link['data-ci-pagination-page']
         return last_page_no
@@ -50,21 +52,24 @@ class FetchNotices:
 
         soup = BeautifulSoup(notices_page.content, 'html.parser')
         NoticesLists = soup.find('ul', class_='list-group list-gr')
-        NoticesLi = NoticesLists.find_all('li')
-        Notices = []
-        for notice in NoticesLi:
-            link = notice.find('a', href=True)
-            href = link['href']
-            text = link.get_text()
-            date = text[:text.index(' ')].replace('\xa0', '')
-            title = text[text.index(' ')+1:]
-            Notices += [
-                {
-                    "date": date,
-                    "title": title,
-                    "file": href
-                }]
-        return Notices
+        try:
+            NoticesLi = NoticesLists.find_all('li')
+            Notices = []
+            for notice in NoticesLi:
+                link = notice.find('a', href=True)
+                href = link['href']
+                text = link.get_text()
+                date = text[:text.index(' ')].replace('\xa0', '')
+                title = text[text.index(' ')+1:]
+                Notices += [
+                    {
+                        "date": date,
+                        "title": title,
+                        "file": href
+                    }]
+            return Notices
+        except:
+            return []
 
     def getAllNoticesFromLinks(self):
         Notices = []

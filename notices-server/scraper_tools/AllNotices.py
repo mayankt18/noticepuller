@@ -37,8 +37,11 @@ class AllNotices:
         soup = BeautifulSoup(response.text, 'html.parser')
 
         required_div = soup.find("div", {"id": "leftmenubar"})
-
-        categories = required_div.find_all('a', href=True)
+        try:
+            categories = required_div.find_all('a', href=True)
+        except:
+            print("There was some error while fetching the categories")
+            return 
 
         jobs = []
 
